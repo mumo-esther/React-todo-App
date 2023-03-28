@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Modal from './components/Modal';
+import Form from './Form Components/Form';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Modal />
+    <Form />
   </React.StrictMode>,
 );
