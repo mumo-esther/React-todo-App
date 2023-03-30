@@ -1,16 +1,32 @@
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import styles from '@/styles/Login.module.css';
+import { useAuthContext } from '@/context/AuthContext';
+import Header from '@/components/Header';
 
 const Login = () => {
   const [username, setUsername] = useState('');
+  const { login } = useAuthContext();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.pathname || '/';
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!username) return;
-    console.log(username);
+    login(username);
+    setUsername('');
+    navigate(from, { replace: true });
   };
+
   return (
     <div>
-      <h1>Login</h1>
+      <Header>
+        <h1>Login</h1>
+      </Header>
       <div className={styles.formWrapper}>
         <form className={styles.form} onSubmit={handleSubmit}>
           <input
@@ -25,4 +41,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;
