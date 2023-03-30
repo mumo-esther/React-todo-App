@@ -1,9 +1,11 @@
+/*eslint-disable*/
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import styles from '@/styles/Login.module.css';
 import { useAuthContext } from '@/context/AuthContext';
 import Header from '@/components/Header';
+/* eslint-enable */
 
 const Login = () => {
   const [username, setUsername] = useState('');

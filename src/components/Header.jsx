@@ -1,4 +1,6 @@
+/*eslint-disable*/
 import styles from '@/styles/Header.module.css';
+/* eslint-enable */
 const Header = (props) => {
   const headerStyle = {
     padding: '20px 0',

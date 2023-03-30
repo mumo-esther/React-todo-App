@@ -1,7 +1,8 @@
+/*eslint-disable*/
 import { useState } from 'react';
-import { useTodosContext } from '@/context/TodosContext';
 import { FaPlusCircle } from 'react-icons/fa';
-
+import { useTodosContext } from '@/context/TodosContext';
+/* eslint-enable */
 const InputTodo = () => {
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
