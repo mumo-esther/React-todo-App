@@ -1,4 +1,4 @@
-import './styles/app.css';
+import './styles/App.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import TodoApp from './components/TodoApp';

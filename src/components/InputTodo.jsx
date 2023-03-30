@@ -1,9 +1,16 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useTodosContext } from '@/context/TodosContext';
+import { FaPlusCircle } from 'react-icons/fa';
 
-const InputTodo = ({ addTodoItem, setTodos }) => {
+const InputTodo = () => {
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
+
+  const { addTodoItem } = useTodosContext();
+
+  const handleChange = (e) => {
+    setTitle(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,39 +23,28 @@ const InputTodo = ({ addTodoItem, setTodos }) => {
     }
   };
 
-  const handleChange = (id) => {
-    setTodos((prevState) => prevState.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          completed: !todo.completed,
-        };
-      }
-      return todo;
-    }));
-  };
-
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form-container">
         <input
           type="text"
           placeholder="Add Todo..."
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={handleChange}
+          className="input-text"
         />
-        <button type="submit" onClick={handleChange}>
-          Submit
+        <button className="input-submit">
+          <FaPlusCircle
+            style={{
+              color: '#5e5e5e',
+              fontSize: '20px',
+              marginTop: '2px',
+            }}
+          />
         </button>
       </form>
-      <span>{message}</span>
+      <span className="submit-warning">{message}</span>
     </>
   );
 };
-
-InputTodo.propTypes = {
-  addTodoItem: PropTypes.func.isRequired,
-  setTodos: PropTypes.func.isRequired,
-};
-
 export default InputTodo;
