@@ -1,23 +1,20 @@
-import {
-  useState,
-  useEffect,
-  createContext,
-  useContext,
+import React, {
+  useState, useEffect, createContext, useContext,
 } from 'react';
-
+import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
 const TodosContext = createContext(null);
 
-export const TodosProvider = ({ children }) => {
-  const [todos, setTodos] = useState(getInitialTodos());
-
+const TodosProvider = ({ children }) => {
   function getInitialTodos() {
     // getting stored items
     const temp = localStorage.getItem('todos');
     const savedTodos = JSON.parse(temp);
     return savedTodos || [];
   }
+
+  const [todos, setTodos] = useState(getInitialTodos());
 
   useEffect(() => {
     // storing todos items
@@ -38,9 +35,7 @@ export const TodosProvider = ({ children }) => {
   };
 
   const delTodo = (id) => {
-    setTodos([
-      ...todos.filter((todo) => todo.id !== id),
-    ]);
+    setTodos([...todos.filter((todo) => todo.id !== id)]);
   };
 
   const addTodoItem = (title) => {
@@ -56,12 +51,16 @@ export const TodosProvider = ({ children }) => {
     setTodos(
       todos.map((todo) => {
         if (todo.id === id) {
-          todo.title = updatedTitle;
+          return {
+            ...todo,
+            title: updatedTitle,
+          };
         }
         return todo;
       }),
     );
   };
+
   return (
     <TodosContext.Provider
       value={{
@@ -76,4 +75,11 @@ export const TodosProvider = ({ children }) => {
     </TodosContext.Provider>
   );
 };
-export const useTodosContext = () => useContext(TodosContext);
+
+TodosProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const useTodosContext = () => useContext(TodosContext);
+
+export { TodosProvider, useTodosContext };

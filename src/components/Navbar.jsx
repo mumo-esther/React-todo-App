@@ -48,6 +48,7 @@ const Navbar = () => {
     <>
       <nav ref={ref} className="navbar">
         <button
+          type="button"
           className="toggle"
           onClick={() => setNavbarOpen((prev) => !prev)}
         >
@@ -63,11 +64,10 @@ const Navbar = () => {
           )}
         </button>
         <ul className={`menu-nav${navbarOpen ? ' show-menu' : ''}`}>
-          {links.map((link) => (
-            <React.Fragment key={link.text}>
-              {link.path === 'login' ? (
-                !user && (
-                <li>
+          {links.map((link) => {
+            if (link.path === 'login') {
+              return !user ? (
+                <li key={link.text}>
                   <NavLink
                     to={link.path}
                     onClick={() => setNavbarOpen(false)}
@@ -75,10 +75,11 @@ const Navbar = () => {
                     {link.text}
                   </NavLink>
                 </li>
-                )
-              ) : link.path === 'profile' ? (
-                user && (
-                <li>
+              ) : null;
+            }
+            if (link.path === 'profile') {
+              return user ? (
+                <li key={link.text}>
                   <NavLink
                     to={link.path}
                     onClick={() => setNavbarOpen(false)}
@@ -86,19 +87,19 @@ const Navbar = () => {
                     {link.text}
                   </NavLink>
                 </li>
-                )
-              ) : (
-                <li>
-                  <NavLink
-                    to={link.path}
-                    onClick={() => setNavbarOpen(false)}
-                  >
-                    {link.text}
-                  </NavLink>
-                </li>
-              )}
-            </React.Fragment>
-          ))}
+              ) : null;
+            }
+            return (
+              <li key={link.text}>
+                <NavLink
+                  to={link.path}
+                  onClick={() => setNavbarOpen(false)}
+                >
+                  {link.text}
+                </NavLink>
+              </li>
+            );
+          })}
           {!user && (
             <li className="log-in">
               <span>Log in to edit to-dos</span>
@@ -110,10 +111,13 @@ const Navbar = () => {
       {user && (
         <div className="logout">
           <p>{user}</p>
-          <button onClick={handleLogout}>Logout</button>
+          <button type="button" onClick={handleLogout}>
+            Logout
+          </button>
         </div>
       )}
     </>
   );
 };
+
 export default Navbar;

@@ -1,21 +1,19 @@
-import {
-  useState,
-  useContext,
-  createContext,
-  useEffect,
+import React, {
+  useState, useContext, createContext, useEffect,
 } from 'react';
+import PropTypes from 'prop-types';
 
 const AuthContext = createContext(null);
 
+const getUsername = () => {
+  // getting stored state
+  const temp = localStorage.getItem('username');
+  const savedUsername = JSON.parse(temp);
+  return savedUsername || '';
+};
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(getUsername());
-
-  function getUsername() {
-    // getting stored state
-    const temp = localStorage.getItem('username');
-    const savedUsername = JSON.parse(temp);
-    return savedUsername || '';
-  }
 
   useEffect(() => {
     // storing user state
@@ -31,6 +29,10 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export const useAuthContext = () => useContext(AuthContext);

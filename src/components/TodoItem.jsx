@@ -1,4 +1,5 @@
 /*eslint-disable*/
+import PropTypes from 'prop-types';
 import { useState, useRef } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { AiFillEdit } from 'react-icons/ai';
@@ -40,6 +41,7 @@ const TodoItem = ({ itemProp }) => {
       setEditing(false);
     }
   };
+
   return (
     <li className={styles.item}>
       <div className={styles.content} style={viewMode}>
@@ -49,13 +51,11 @@ const TodoItem = ({ itemProp }) => {
           onChange={() => handleChange(itemProp.id)}
         />
         {user && (
-          <button onClick={handleEditing}>
-            <AiFillEdit
-              style={{ color: '#5e5e5e', fontSize: '16px' }}
-            />
+          <button type="button" onClick={handleEditing}>
+            <AiFillEdit style={{ color: '#5e5e5e', fontSize: '16px' }} />
           </button>
         )}
-        <button onClick={() => delTodo(itemProp.id)}>
+        <button type="button" onClick={() => delTodo(itemProp.id)}>
           <FaTrash style={{ color: '#5e5e5e', fontSize: '16px' }} />
         </button>
         <span style={itemProp.completed ? completedStyle : null}>
@@ -73,4 +73,13 @@ const TodoItem = ({ itemProp }) => {
     </li>
   );
 };
+
+TodoItem.propTypes = {
+  itemProp: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired,
+  }).isRequired,
+};
+
 export default TodoItem;
