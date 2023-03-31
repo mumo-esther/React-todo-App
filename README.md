@@ -20,11 +20,11 @@
 - [🙏 Acknowledgements](#acknowledgements)
 - [📝 License](#license)
 
-# 📖 Math Magician
+# 📖 Todo App
 
 <a name="about-project"></a>
 
-# Math Magician
+# Todo App
 
 This Project, divided into several parts, is very comprehensive, and covers all main concepts about React, from the very basics to some intermediate topics. Todo App, Form and also a react hamburger menu
 
